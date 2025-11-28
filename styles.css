@@ -1349,7 +1349,7 @@ body::before {
 }
 
 .developer-logo {
-    height: 120px;
+    height: 160px;
     width: auto;
     margin: 0 auto var(--spacing-lg);
     transition: all 0.4s ease;
