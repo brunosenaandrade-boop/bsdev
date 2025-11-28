@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Política de Privacidade do aplicativo Tenha Paz - Bloqueador de Chamadas">
+    <title>Política de Privacidade - Tenha Paz</title>
+    <link rel="icon" type="image/png" href="assets/app-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #7c3aed;
+            --primary: #8b5cf6;
+            --primary-light: #a78bfa;
+            --primary-subtle: #ede9fe;
+            --white: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--gray-700);
+            background-color: var(--gray-50);
+        }
+
+        /* Header */
+        .header {
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+        }
+
+        .logo-text {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--primary-subtle);
+            color: var(--primary);
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* Main Content */
+        .main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        .policy-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .policy-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .policy-header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .last-updated {
+            color: var(--gray-500);
+            font-size: 0.875rem;
+        }
+
+        h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--gray-600);
+        }
+
+        ul {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            color: var(--gray-600);
+        }
+
+        li strong {
+            color: var(--gray-800);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, var(--primary-subtle) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border-left: 4px solid var(--primary);
+            padding: 1rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            font-weight: 500;
+            color: var(--gray-800);
+        }
+
+        .no-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .no-list li {
+            position: relative;
+            padding-left: 1.75rem;
+        }
+
+        .no-list li::before {
+            content: "✗";
+            position: absolute;
+            left: 0;
+            color: #ef4444;
+            font-weight: bold;
+        }
+
+        .contact-box {
+            background: var(--gray-50);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+
+        .contact-box h2 {
+            margin-top: 0;
+        }
+
+        .contact-box p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--gray-500);
+            font-size: 0.875rem;
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 640px) {
+            .policy-card {
+                padding: 1.5rem;
+            }
+
+            .policy-header h1 {
+                font-size: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.125rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <img src="assets/app-icon.png" alt="Tenha Paz" class="logo-icon">
+                <span class="logo-text">Tenha Paz</span>
+            </a>
+            <a href="index.html" class="back-btn">
+                ← Voltar
+            </a>
+        </div>
+    </header>
+
+    <main class="main">
+        <article class="policy-card">
+            <div class="policy-header">
+                <h1>Política de Privacidade</h1>
+                <p class="last-updated">Última atualização: 28 de novembro de 2025</p>
+            </div>
+
+            <h2>1. Introdução</h2>
+            <p>
+                O aplicativo <strong>Tenha Paz</strong> foi desenvolvido com foco total em privacidade.
+                Este documento explica como tratamos suas informações ao usar nosso aplicativo de bloqueio de chamadas.
+            </p>
+
+            <h2>2. Dados que Acessamos</h2>
+            <p>Para funcionar corretamente, o Tenha Paz precisa acessar:</p>
+            <ul>
+                <li><strong>Contatos:</strong> Apenas para verificar se quem está ligando está na sua lista de contatos (Modo Seletivo)</li>
+                <li><strong>Registro de Chamadas:</strong> Para identificar chamadas recebidas e aplicar as regras de bloqueio</li>
+                <li><strong>Estado do Telefone:</strong> Para detectar chamadas recebidas</li>
+            </ul>
+
+            <h2>3. Como Usamos os Dados</h2>
+            <div class="highlight-box">
+                <p>Todos os dados são processados localmente no seu dispositivo. Nada sai do seu celular!</p>
+            </div>
+            <p>O Tenha Paz:</p>
+            <ul class="no-list">
+                <li>NÃO envia seus dados para servidores externos</li>
+                <li>NÃO coleta informações pessoais</li>
+                <li>NÃO usa serviços de análise ou rastreamento</li>
+                <li>NÃO exibe anúncios</li>
+                <li>NÃO compartilha dados com terceiros</li>
+            </ul>
+
+            <h2>4. Armazenamento de Dados</h2>
+            <p>
+                As únicas informações armazenadas são suas preferências de configuração
+                (modo de paz selecionado), que ficam salvas apenas no seu dispositivo
+                usando o armazenamento seguro do Android.
+            </p>
+
+            <h2>5. Permissões do Aplicativo</h2>
+            <p>Explicação detalhada de cada permissão:</p>
+            <ul>
+                <li><strong>Gerenciar chamadas (Call Screening):</strong> Função principal - permite bloquear chamadas indesejadas</li>
+                <li><strong>Ler contatos:</strong> Verificar se quem liga está nos seus contatos</li>
+                <li><strong>Ler registro de chamadas:</strong> Identificar o número que está ligando</li>
+                <li><strong>Iniciar na inicialização:</strong> Manter a proteção ativa após reiniciar o celular</li>
+            </ul>
+
+            <h2>6. Segurança</h2>
+            <p>
+                Como não coletamos nem transmitimos dados, não há risco de vazamento de informações
+                pessoais através do nosso aplicativo. Seus dados permanecem exclusivamente no seu dispositivo.
+            </p>
+
+            <h2>7. Crianças</h2>
+            <p>
+                O Tenha Paz não é direcionado a menores de 13 anos e não coleta
+                intencionalmente informações de crianças.
+            </p>
+
+            <h2>8. Alterações nesta Política</h2>
+            <p>
+                Podemos atualizar esta política ocasionalmente. Notificaremos sobre mudanças
+                significativas através do aplicativo ou da página da Play Store.
+            </p>
+
+            <h2>9. Seus Direitos</h2>
+            <p>
+                Como não coletamos dados pessoais, não há dados para solicitar, corrigir ou excluir.
+                Suas configurações podem ser redefinidas desinstalando o aplicativo.
+            </p>
+
+            <div class="contact-box">
+                <h2>10. Contato</h2>
+                <p>
+                    Se você tiver dúvidas sobre esta Política de Privacidade, entre em contato:
+                </p>
+                <p>
+                    <strong>Desenvolvedor:</strong> BSdeveloper<br>
+                    <strong>E-mail:</strong> contato@bsdeveloper.com.br
+                </p>
+            </div>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <p>© 2025 <a href="index.html">Tenha Paz</a> por BSdeveloper. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
