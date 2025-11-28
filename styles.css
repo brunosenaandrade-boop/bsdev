@@ -613,14 +613,34 @@ body::before {
 }
 
 .problem-icon {
-    font-size: 2.5rem;
-    margin-bottom: var(--spacing-md);
-    filter: grayscale(0);
-    transition: transform 0.3s ease;
+    width: 56px;
+    height: 56px;
+    margin-bottom: var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(139, 92, 246, 0.05) 100%);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: var(--radius-lg);
+    transition: all 0.3s ease;
+}
+
+.problem-icon svg {
+    width: 28px;
+    height: 28px;
+    stroke: var(--primary-light);
+    transition: all 0.3s ease;
 }
 
 .problem-card:hover .problem-icon {
-    transform: scale(1.2);
+    transform: scale(1.1);
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.3) 0%, rgba(139, 92, 246, 0.1) 100%);
+    border-color: rgba(139, 92, 246, 0.5);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+.problem-card:hover .problem-icon svg {
+    stroke: var(--white);
 }
 
 .problem-card h3 {
