@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothScroll();
     initHeaderScroll();
     initScrollAnimations();
-    initDownloadButton();
     initParallaxEffects();
     initCounterAnimation();
 });
@@ -218,36 +217,170 @@ function animateCounter(element, target) {
 }
 
 // ============================================
-// DOWNLOAD BUTTON
+// EMAIL CAPTURE MODAL
 // ============================================
 
-function initDownloadButton() {
-    const downloadBtn = document.getElementById('download-btn');
-    const allDownloadBtns = document.querySelectorAll('a[href="#download"], a[href="#"]');
+const APK_DOWNLOAD_URL = 'assets/TenhaPaz.apk';
+const LEADS_STORAGE_KEY = 'tenhapaz_leads';
 
-    allDownloadBtns.forEach(btn => {
-        if (btn.getAttribute('href') === '#' && btn.id === 'download-btn') {
-            btn.addEventListener('click', function(e) {
-                if (this.getAttribute('href') === '#') {
-                    e.preventDefault();
-                    showComingSoonMessage();
-                }
-            });
-        }
-    });
+function openEmailModal() {
+    const modal = document.getElementById('email-modal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        // Focus on email input
+        setTimeout(() => {
+            const emailInput = document.getElementById('email-input');
+            if (emailInput) emailInput.focus();
+        }, 300);
+    }
 }
 
-function showComingSoonMessage() {
+function closeEmailModal() {
+    const modal = document.getElementById('email-modal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+function openSuccessModal() {
+    const modal = document.getElementById('success-modal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeSuccessModal() {
+    const modal = document.getElementById('success-modal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+function handleEmailSubmit(event) {
+    event.preventDefault();
+
+    const emailInput = document.getElementById('email-input');
+    const submitBtn = event.target.querySelector('button[type="submit"]');
+    const email = emailInput.value.trim();
+
+    if (!email || !isValidEmail(email)) {
+        shakeInput(emailInput);
+        return;
+    }
+
+    // Add loading state
+    submitBtn.classList.add('loading');
+    submitBtn.innerHTML = `
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+        </svg>
+        Processando...
+    `;
+
+    // Simulate processing (in production, send to backend)
+    setTimeout(() => {
+        // Save lead locally
+        saveLeadEmail(email);
+
+        // Close email modal
+        closeEmailModal();
+
+        // Reset form
+        emailInput.value = '';
+        submitBtn.classList.remove('loading');
+        submitBtn.innerHTML = `
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/>
+            </svg>
+            Liberar Download
+        `;
+
+        // Show success modal and trigger download
+        openSuccessModal();
+        triggerDownload();
+
+        // Show toast
+        showToast('Download iniciado!', 'success');
+
+    }, 1500);
+}
+
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+function shakeInput(input) {
+    input.style.animation = 'shake 0.5s ease';
+    input.style.borderColor = '#ef4444';
+
+    setTimeout(() => {
+        input.style.animation = '';
+        input.style.borderColor = '';
+    }, 500);
+}
+
+function saveLeadEmail(email) {
+    try {
+        // Get existing leads
+        const existingLeads = JSON.parse(localStorage.getItem(LEADS_STORAGE_KEY) || '[]');
+
+        // Add new lead with timestamp
+        const newLead = {
+            email: email,
+            timestamp: new Date().toISOString(),
+            source: 'landing_page'
+        };
+
+        existingLeads.push(newLead);
+
+        // Save back to localStorage
+        localStorage.setItem(LEADS_STORAGE_KEY, JSON.stringify(existingLeads));
+
+        console.log('Lead salvo:', newLead);
+        console.log('Total de leads:', existingLeads.length);
+
+        // Optional: Send to external service (webhook, API, etc.)
+        // sendLeadToBackend(newLead);
+
+    } catch (error) {
+        console.error('Erro ao salvar lead:', error);
+    }
+}
+
+function triggerDownload() {
+    // Create invisible link and trigger download
+    const link = document.createElement('a');
+    link.href = APK_DOWNLOAD_URL;
+    link.download = 'TenhaPaz.apk';
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+function showToast(message, type = 'info') {
     // Remove existing toast if any
     const existingToast = document.querySelector('.toast-message');
     if (existingToast) existingToast.remove();
+
+    const icons = {
+        success: '✅',
+        error: '❌',
+        info: '🚀'
+    };
 
     const toast = document.createElement('div');
     toast.className = 'toast-message';
     toast.innerHTML = `
         <div class="toast-content">
-            <span class="toast-icon">🚀</span>
-            <span class="toast-text">Em breve na Play Store! Fique ligado.</span>
+            <span class="toast-icon">${icons[type] || icons.info}</span>
+            <span class="toast-text">${message}</span>
         </div>
     `;
 
@@ -294,6 +427,55 @@ function showComingSoonMessage() {
         setTimeout(() => toast.remove(), 500);
     }, 3000);
 }
+
+// Close modal on overlay click
+document.addEventListener('DOMContentLoaded', function() {
+    const modals = document.querySelectorAll('.modal-overlay');
+    modals.forEach(modal => {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    });
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeEmailModal();
+            closeSuccessModal();
+        }
+    });
+});
+
+// Add shake animation CSS
+const shakeStyle = document.createElement('style');
+shakeStyle.textContent = `
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20%, 60% { transform: translateX(-5px); }
+        40%, 80% { transform: translateX(5px); }
+    }
+`;
+document.head.appendChild(shakeStyle);
+
+// Utility function to get all leads (for debugging/export)
+function getAllLeads() {
+    try {
+        return JSON.parse(localStorage.getItem(LEADS_STORAGE_KEY) || '[]');
+    } catch (error) {
+        return [];
+    }
+}
+
+// Expose globally for debugging
+window.getAllLeads = getAllLeads;
+window.openEmailModal = openEmailModal;
+window.closeEmailModal = closeEmailModal;
+window.openSuccessModal = openSuccessModal;
+window.closeSuccessModal = closeSuccessModal;
+window.handleEmailSubmit = handleEmailSubmit;
 
 // ============================================
 // UTILITY: Update Play Store Link

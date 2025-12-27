@@ -29,7 +29,7 @@
                     <img src="assets/app-icon.png" alt="Tenha Paz" class="logo-icon">
                     <span class="logo-text">Tenha Paz</span>
                 </div>
-                <a href="#download" class="btn btn-header">Baixar Grátis</a>
+                <button class="btn btn-header" onclick="openEmailModal()">Baixar Grátis</button>
             </div>
         </div>
     </header>
@@ -52,13 +52,13 @@
                         </div>
                     </div>
                     <div class="hero-cta">
-                        <a href="#download" class="btn btn-primary btn-large">
+                        <button class="btn btn-primary btn-large" onclick="openEmailModal()">
                             <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M17.523 2H6.477C5.768 2 5.5 2.768 5.5 3.477v17.046c0 .709.268 1.477.977 1.477h11.046c.709 0 .977-.768.977-1.477V3.477C18.5 2.768 18.232 2 17.523 2zM12 20.5c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zM16.5 16h-9V5h9v11z"/>
+                                <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/>
                             </svg>
-                            Baixar para Android
-                        </a>
-                        <span class="btn-subtitle">Disponível na Play Store</span>
+                            Baixar Grátis
+                        </button>
+                        <span class="btn-subtitle">Download direto - Android 10+</span>
                     </div>
                 </div>
                 <div class="hero-image">
@@ -409,16 +409,65 @@
                 <img src="assets/app-icon.png" alt="Tenha Paz" class="cta-icon">
                 <h2>Pronto para ter paz?</h2>
                 <p>Baixe agora e diga adeus às ligações indesejadas. É grátis!</p>
-                <a href="#" class="btn btn-primary btn-large" id="download-btn">
+                <button class="btn btn-primary btn-large" id="download-btn" onclick="openEmailModal()">
                     <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
+                        <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/>
                     </svg>
-                    Baixar na Play Store
-                </a>
+                    Baixar Grátis
+                </button>
                 <p class="cta-note">Disponível para Android 10+</p>
             </div>
         </div>
     </section>
+
+    <!-- Email Capture Modal -->
+    <div class="modal-overlay" id="email-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeEmailModal()">&times;</button>
+            <div class="modal-icon">
+                <img src="assets/app-icon.png" alt="Tenha Paz">
+            </div>
+            <h3>Quase lá!</h3>
+            <p>Digite seu email para receber o download gratuito e novidades sobre o app.</p>
+            <form id="email-form" onsubmit="handleEmailSubmit(event)">
+                <div class="input-group">
+                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                    <input type="email" id="email-input" placeholder="seu@email.com" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/>
+                    </svg>
+                    Liberar Download
+                </button>
+            </form>
+            <p class="modal-privacy">Seus dados estão seguros. Não enviamos spam.</p>
+        </div>
+    </div>
+
+    <!-- Download Success Modal -->
+    <div class="modal-overlay" id="success-modal">
+        <div class="modal-content success-content">
+            <div class="success-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+            </div>
+            <h3>Obrigado!</h3>
+            <p>Seu download vai começar automaticamente.</p>
+            <a href="assets/TenhaPaz.apk" download class="btn btn-primary btn-full" id="direct-download-btn">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/>
+                </svg>
+                Baixar Novamente
+            </a>
+            <button class="btn btn-secondary btn-full" onclick="closeSuccessModal()">Fechar</button>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
