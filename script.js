@@ -222,6 +222,7 @@ function animateCounter(element, target) {
 
 const APK_DOWNLOAD_URL = 'assets/TenhaPaz.apk';
 const LEADS_STORAGE_KEY = 'tenhapaz_leads';
+const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxyWZtWROTAaYwE2rdc_3DpycC8lU3aMr2Y68CbWP-hJX_inbQPERekU9fe72HBFYJAuA/exec';
 
 function openEmailModal() {
     const modal = document.getElementById('email-modal');
@@ -327,9 +328,6 @@ function shakeInput(input) {
 
 function saveLeadEmail(email) {
     try {
-        // Get existing leads
-        const existingLeads = JSON.parse(localStorage.getItem(LEADS_STORAGE_KEY) || '[]');
-
         // Add new lead with timestamp
         const newLead = {
             email: email,
@@ -337,20 +335,36 @@ function saveLeadEmail(email) {
             source: 'landing_page'
         };
 
+        // Save locally as backup
+        const existingLeads = JSON.parse(localStorage.getItem(LEADS_STORAGE_KEY) || '[]');
         existingLeads.push(newLead);
-
-        // Save back to localStorage
         localStorage.setItem(LEADS_STORAGE_KEY, JSON.stringify(existingLeads));
 
-        console.log('Lead salvo:', newLead);
-        console.log('Total de leads:', existingLeads.length);
+        console.log('Lead salvo localmente:', newLead);
 
-        // Optional: Send to external service (webhook, API, etc.)
-        // sendLeadToBackend(newLead);
+        // Send to Google Sheets
+        sendLeadToGoogleSheets(newLead);
 
     } catch (error) {
         console.error('Erro ao salvar lead:', error);
     }
+}
+
+function sendLeadToGoogleSheets(lead) {
+    fetch(GOOGLE_SHEETS_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(lead)
+    })
+    .then(() => {
+        console.log('Lead enviado para Google Sheets com sucesso!');
+    })
+    .catch(error => {
+        console.error('Erro ao enviar para Google Sheets:', error);
+    });
 }
 
 function triggerDownload() {
