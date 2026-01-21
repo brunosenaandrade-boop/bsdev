@@ -220,8 +220,8 @@ function animateCounter(element, target) {
 // BETA TESTER MODAL
 // ============================================
 
-// IMPORTANTE: Substitua este link pelo seu link do Grupo do Google
-const GOOGLE_GROUP_URL = 'SEU_LINK_DO_GRUPO_GOOGLE_AQUI';
+// Link do Grupo do Google para testadores
+const GOOGLE_GROUP_URL = 'https://groups.google.com/g/testadores-tenhapaz';
 
 function openBetaModal() {
     const modal = document.getElementById('beta-modal');
