@@ -217,166 +217,42 @@ function animateCounter(element, target) {
 }
 
 // ============================================
-// EMAIL CAPTURE MODAL
+// BETA TESTER MODAL
 // ============================================
 
-const APK_DOWNLOAD_URL = 'assets/TenhaPaz.apk';
-const LEADS_STORAGE_KEY = 'tenhapaz_leads';
-const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxyWZtWROTAaYwE2rdc_3DpycC8lU3aMr2Y68CbWP-hJX_inbQPERekU9fe72HBFYJAuA/exec';
+// IMPORTANTE: Substitua este link pelo seu link do Grupo do Google
+const GOOGLE_GROUP_URL = 'SEU_LINK_DO_GRUPO_GOOGLE_AQUI';
 
-function openEmailModal() {
-    const modal = document.getElementById('email-modal');
-    if (modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-
-        // Focus on email input
-        setTimeout(() => {
-            const emailInput = document.getElementById('email-input');
-            if (emailInput) emailInput.focus();
-        }, 300);
-    }
-}
-
-function closeEmailModal() {
-    const modal = document.getElementById('email-modal');
-    if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-}
-
-function openSuccessModal() {
-    const modal = document.getElementById('success-modal');
+function openBetaModal() {
+    const modal = document.getElementById('beta-modal');
     if (modal) {
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
 }
 
-function closeSuccessModal() {
-    const modal = document.getElementById('success-modal');
+function closeBetaModal() {
+    const modal = document.getElementById('beta-modal');
     if (modal) {
         modal.classList.remove('active');
         document.body.style.overflow = '';
     }
 }
 
-function handleEmailSubmit(event) {
-    event.preventDefault();
-
-    const emailInput = document.getElementById('email-input');
-    const submitBtn = event.target.querySelector('button[type="submit"]');
-    const email = emailInput.value.trim();
-
-    if (!email || !isValidEmail(email)) {
-        shakeInput(emailInput);
-        return;
-    }
-
-    // Add loading state
-    submitBtn.classList.add('loading');
-    submitBtn.innerHTML = `
-        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-        </svg>
-        Processando...
-    `;
-
-    // Simulate processing (in production, send to backend)
-    setTimeout(() => {
-        // Save lead locally
-        saveLeadEmail(email);
-
-        // Close email modal
-        closeEmailModal();
-
-        // Reset form
-        emailInput.value = '';
-        submitBtn.classList.remove('loading');
-        submitBtn.innerHTML = `
-            <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/>
-            </svg>
-            Liberar Download
-        `;
-
-        // Show success modal and trigger download
-        openSuccessModal();
-        triggerDownload();
-
-        // Show toast
-        showToast('Download iniciado!', 'success');
-
-    }, 1500);
-}
-
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
-
-function shakeInput(input) {
-    input.style.animation = 'shake 0.5s ease';
-    input.style.borderColor = '#ef4444';
-
-    setTimeout(() => {
-        input.style.animation = '';
-        input.style.borderColor = '';
-    }, 500);
-}
-
-function saveLeadEmail(email) {
-    try {
-        // Add new lead with timestamp
-        const newLead = {
-            email: email,
-            timestamp: new Date().toISOString(),
-            source: 'landing_page'
-        };
-
-        // Save locally as backup
-        const existingLeads = JSON.parse(localStorage.getItem(LEADS_STORAGE_KEY) || '[]');
-        existingLeads.push(newLead);
-        localStorage.setItem(LEADS_STORAGE_KEY, JSON.stringify(existingLeads));
-
-        console.log('Lead salvo localmente:', newLead);
-
-        // Send to Google Sheets
-        sendLeadToGoogleSheets(newLead);
-
-    } catch (error) {
-        console.error('Erro ao salvar lead:', error);
+// Funcao para atualizar o link do Grupo do Google
+function setGoogleGroupUrl(url) {
+    const btnGrupo = document.getElementById('btn-grupo');
+    if (btnGrupo) {
+        btnGrupo.href = url;
+        console.log('Link do Grupo do Google atualizado:', url);
     }
 }
 
-function sendLeadToGoogleSheets(lead) {
-    fetch(GOOGLE_SHEETS_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(lead)
-    })
-    .then(() => {
-        console.log('Lead enviado para Google Sheets com sucesso!');
-    })
-    .catch(error => {
-        console.error('Erro ao enviar para Google Sheets:', error);
-    });
-}
-
-function triggerDownload() {
-    // Create invisible link and trigger download
-    const link = document.createElement('a');
-    link.href = APK_DOWNLOAD_URL;
-    link.download = 'TenhaPaz.apk';
-    link.style.display = 'none';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
+// Inicializa o link do grupo quando a pagina carrega
+document.addEventListener('DOMContentLoaded', function() {
+    // Se voce ja tiver o link, descomente a linha abaixo e substitua
+    // setGoogleGroupUrl('https://groups.google.com/g/seu-grupo');
+});
 
 function showToast(message, type = 'info') {
     // Remove existing toast if any
@@ -457,8 +333,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Close modal on Escape key
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
-            closeEmailModal();
-            closeSuccessModal();
+            closeBetaModal();
         }
     });
 });
@@ -474,22 +349,10 @@ shakeStyle.textContent = `
 `;
 document.head.appendChild(shakeStyle);
 
-// Utility function to get all leads (for debugging/export)
-function getAllLeads() {
-    try {
-        return JSON.parse(localStorage.getItem(LEADS_STORAGE_KEY) || '[]');
-    } catch (error) {
-        return [];
-    }
-}
-
-// Expose globally for debugging
-window.getAllLeads = getAllLeads;
-window.openEmailModal = openEmailModal;
-window.closeEmailModal = closeEmailModal;
-window.openSuccessModal = openSuccessModal;
-window.closeSuccessModal = closeSuccessModal;
-window.handleEmailSubmit = handleEmailSubmit;
+// Expose globally
+window.openBetaModal = openBetaModal;
+window.closeBetaModal = closeBetaModal;
+window.setGoogleGroupUrl = setGoogleGroupUrl;
 
 // ============================================
 // UTILITY: Update Play Store Link

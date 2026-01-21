@@ -29,7 +29,7 @@
                     <img src="assets/app-icon.png" alt="Tenha Paz" class="logo-icon">
                     <span class="logo-text">Tenha Paz</span>
                 </div>
-                <button class="btn btn-header" onclick="openEmailModal()">Baixar Grátis</button>
+                <button class="btn btn-header" onclick="openBetaModal()">Seja um Testador</button>
             </div>
         </div>
     </header>
@@ -52,13 +52,13 @@
                         </div>
                     </div>
                     <div class="hero-cta">
-                        <button class="btn btn-primary btn-large" onclick="openEmailModal()">
+                        <button class="btn btn-primary btn-large" onclick="openBetaModal()">
                             <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/>
+                                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
                             </svg>
-                            Baixar Grátis
+                            Testar Agora - Gratis
                         </button>
-                        <span class="btn-subtitle">Download direto - Android 10+</span>
+                        <span class="btn-subtitle">Versao Beta - Android 10+</span>
                     </div>
                 </div>
                 <div class="hero-image">
@@ -408,64 +408,81 @@
             <div class="cta-content">
                 <img src="assets/app-icon.png" alt="Tenha Paz" class="cta-icon">
                 <h2>Pronto para ter paz?</h2>
-                <p>Baixe agora e diga adeus às ligações indesejadas. É grátis!</p>
-                <button class="btn btn-primary btn-large" id="download-btn" onclick="openEmailModal()">
+                <p>Seja um dos primeiros a testar! Nos ajude a melhorar o app.</p>
+                <button class="btn btn-primary btn-large" id="download-btn" onclick="openBetaModal()">
                     <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/>
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
                     </svg>
-                    Baixar Grátis
+                    Quero Testar!
                 </button>
-                <p class="cta-note">Disponível para Android 10+</p>
+                <p class="cta-note">Versao Beta - Android 10+</p>
             </div>
         </div>
     </section>
 
-    <!-- Email Capture Modal -->
-    <div class="modal-overlay" id="email-modal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeEmailModal()">&times;</button>
-            <div class="modal-icon">
-                <img src="assets/app-icon.png" alt="Tenha Paz">
-            </div>
-            <h3>Quase lá!</h3>
-            <p>Digite seu email para receber o download gratuito e novidades sobre o app.</p>
-            <form id="email-form" onsubmit="handleEmailSubmit(event)">
-                <div class="input-group">
-                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                        <polyline points="22,6 12,13 2,6"/>
-                    </svg>
-                    <input type="email" id="email-input" placeholder="seu@email.com" required>
-                </div>
-                <button type="submit" class="btn btn-primary btn-full">
-                    <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/>
-                    </svg>
-                    Liberar Download
-                </button>
-            </form>
-            <p class="modal-privacy">Seus dados estão seguros. Não enviamos spam.</p>
-        </div>
-    </div>
+    <!-- Beta Tester Modal -->
+    <div class="modal-overlay" id="beta-modal">
+        <div class="modal-content beta-content">
+            <button class="modal-close" onclick="closeBetaModal()">&times;</button>
 
-    <!-- Download Success Modal -->
-    <div class="modal-overlay" id="success-modal">
-        <div class="modal-content success-content">
-            <div class="success-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                    <polyline points="22 4 12 14.01 9 11.01"/>
-                </svg>
+            <div class="beta-header">
+                <div class="beta-badge">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                    Teste Beta
+                </div>
+                <h3>Seja um Testador!</h3>
+                <p>O app ainda está em fase de testes. Siga os passos abaixo para baixar e nos ajudar a melhorar o Tenha Paz.</p>
             </div>
-            <h3>Obrigado!</h3>
-            <p>Seu download vai começar automaticamente.</p>
-            <a href="assets/TenhaPaz.apk" download class="btn btn-primary btn-full" id="direct-download-btn">
-                <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/>
-                </svg>
-                Baixar Novamente
-            </a>
-            <button class="btn btn-secondary btn-full" onclick="closeSuccessModal()">Fechar</button>
+
+            <div class="beta-steps">
+                <div class="beta-step">
+                    <div class="beta-step-number">1</div>
+                    <div class="beta-step-content">
+                        <h4>Entre no Grupo de Testadores</h4>
+                        <p>Clique no botao abaixo e depois em <strong>"Participar do grupo"</strong></p>
+                        <a href="SEU_LINK_DO_GRUPO_GOOGLE_AQUI" target="_blank" class="btn btn-beta-step" id="btn-grupo">
+                            <svg viewBox="0 0 24 24" fill="currentColor" class="btn-icon">
+                                <path d="M12 12.75c1.63 0 3.07.39 4.24.9c1.08.48 1.76 1.56 1.76 2.73V18H6v-1.61c0-1.18.68-2.26 1.76-2.73c1.17-.52 2.61-.91 4.24-.91zM4 13c1.1 0 2-.9 2-2s-.9-2-2-2s-2 .9-2 2s.9 2 2 2zm1.13 1.1c-.37-.06-.74-.1-1.13-.1c-.99 0-1.93.21-2.78.58A2.01 2.01 0 0 0 0 16.43V18h4.5v-1.61c0-.83.23-1.61.63-2.29zM20 13c1.1 0 2-.9 2-2s-.9-2-2-2s-2 .9-2 2s.9 2 2 2zm4 3.43c0-.81-.48-1.53-1.22-1.85A6.95 6.95 0 0 0 20 14c-.39 0-.76.04-1.13.1c.4.68.63 1.46.63 2.29V18H24v-1.57zM12 6c1.66 0 3 1.34 3 3s-1.34 3-3 3s-3-1.34-3-3s1.34-3 3-3z"/>
+                            </svg>
+                            Entrar no Grupo
+                        </a>
+                    </div>
+                </div>
+
+                <div class="beta-step">
+                    <div class="beta-step-number">2</div>
+                    <div class="beta-step-content">
+                        <h4>Aceite ser Testador Beta</h4>
+                        <p>Dentro do grupo, clique em <strong>"Aceitar convite"</strong> ou <strong>"Tornar-se testador"</strong></p>
+                        <div class="beta-tip">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                            </svg>
+                            <span>Voce precisa estar logado com sua conta Google</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="beta-step">
+                    <div class="beta-step-number">3</div>
+                    <div class="beta-step-content">
+                        <h4>Baixe o App</h4>
+                        <p>Apos aceitar, clique no link da <strong>Play Store</strong> que aparecera para baixar o app</p>
+                        <div class="beta-tip success">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                            <span>Pronto! Agora e so usar e nos dar seu feedback</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="beta-footer">
+                <p>Precisa de ajuda? Entre em contato pelo email: <strong>suporte@bsdeveloper.com</strong></p>
+            </div>
         </div>
     </div>
 
